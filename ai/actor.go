@@ -1,7 +1,7 @@
 package ai
 
 type Actor interface {
-	SetValue(key string, value any)
-	GetValue(key string) (any, bool)
-	OffsetValue(key string, amount float64)
+	SetTrait(key string, value float64)
+	GetTrait(key string) (float64, bool)
+	OffsetTrait(key string, amount float64)
 }
