@@ -1,8 +1,8 @@
 package considerations
 
 import (
-	"github.com/eliot-louet/go-utility-ai/internal/ai"
-	"github.com/eliot-louet/go-utility-ai/internal/ai/curves"
+	"github.com/eliot-louet/go-utility-ai/ai"
+	"github.com/eliot-louet/go-utility-ai/ai/curves"
 )
 
 const BoredomConsiderationID ai.ConsiderationID = "OwnBoredom"

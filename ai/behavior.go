@@ -4,7 +4,7 @@ package ai
 import (
 	"math"
 
-	"github.com/eliot-louet/go-utility-ai/internal/ai/math_utils"
+	"github.com/eliot-louet/go-utility-ai/ai/math_utils"
 )
 
 type ActionStatus int

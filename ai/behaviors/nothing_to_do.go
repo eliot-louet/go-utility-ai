@@ -1,9 +1,9 @@
 package behaviors
 
 import (
-	"github.com/eliot-louet/go-utility-ai/internal/ai"
-	"github.com/eliot-louet/go-utility-ai/internal/ai/considerations"
-	"github.com/eliot-louet/go-utility-ai/internal/ai/provider"
+	"github.com/eliot-louet/go-utility-ai/ai"
+	"github.com/eliot-louet/go-utility-ai/ai/considerations"
+	"github.com/eliot-louet/go-utility-ai/ai/provider"
 )
 
 type NothingToDo struct {

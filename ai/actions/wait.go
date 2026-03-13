@@ -1,6 +1,6 @@
 package actions
 
-import "github.com/eliot-louet/go-utility-ai/internal/ai"
+import "github.com/eliot-louet/go-utility-ai/ai"
 
 type WaitAction struct {
 }

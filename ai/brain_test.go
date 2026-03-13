@@ -3,7 +3,7 @@ package ai_test
 import (
 	"testing"
 
-	"github.com/eliot-louet/go-utility-ai/internal/ai"
+	"github.com/eliot-louet/go-utility-ai/ai"
 	gomock "go.uber.org/mock/gomock"
 )
 
