@@ -71,7 +71,13 @@ func (b behaviorData) MakeBehavior(f *brainFixture, ctrl *gomock.Controller) *ai
 		considerations = append(considerations, consideration)
 	}
 
-	mockBehavior.EXPECT().Considerations(gomock.Any(), gomock.Any()).Return(considerations).AnyTimes()
+	mockBehavior.EXPECT().ForEachConsideration(gomock.Any(), gomock.Any(), gomock.Any()).DoAndReturn(func(ctx *ai.Context, target ai.Target, yield func(*ai.Consideration) bool) {
+		for _, c := range considerations {
+			if !yield(c) {
+				return
+			}
+		}
+	}).AnyTimes()
 
 	mockBehavior.EXPECT().Action(gomock.Any(), gomock.Any()).Return(b.Action.MakeAction(f, ctrl)).AnyTimes()
 

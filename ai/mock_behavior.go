@@ -77,18 +77,16 @@ func (mr *MockBehaviorMockRecorder) Action(ctx, target any) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Action", reflect.TypeOf((*MockBehavior)(nil).Action), ctx, target)
 }
 
-// Considerations mocks base method.
-func (m *MockBehavior) Considerations(ctx *Context, target Target) []*Consideration {
+// ForEachConsideration mocks base method.
+func (m *MockBehavior) ForEachConsideration(ctx *Context, target Target, yield func(*Consideration) bool) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Considerations", ctx, target)
-	ret0, _ := ret[0].([]*Consideration)
-	return ret0
+	m.ctrl.Call(m, "ForEachConsideration", ctx, target, yield)
 }
 
-// Considerations indicates an expected call of Considerations.
-func (mr *MockBehaviorMockRecorder) Considerations(ctx, target any) *gomock.Call {
+// ForEachConsideration indicates an expected call of ForEachConsideration.
+func (mr *MockBehaviorMockRecorder) ForEachConsideration(ctx, target, yield any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Considerations", reflect.TypeOf((*MockBehavior)(nil).Considerations), ctx, target)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ForEachConsideration", reflect.TypeOf((*MockBehavior)(nil).ForEachConsideration), ctx, target, yield)
 }
 
 // ID mocks base method.
