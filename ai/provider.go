@@ -6,6 +6,6 @@ type TargetProviderID string
 
 type TargetProvider interface {
 	ID() TargetProviderID
-	Targets(ctx *Context) []Target
+	ForEachTarget(ctx *Context, yield func(Target) bool)
 	ShouldCache() bool
 }

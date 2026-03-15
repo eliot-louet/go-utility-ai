@@ -41,7 +41,13 @@ func (b behaviorData) MakeBehavior(f *brainFixture, ctrl *gomock.Controller) *ai
 	provider := ai.NewMockTargetProvider(ctrl)
 	provider.EXPECT().ID().Return(b.Provider.ID).AnyTimes()
 	provider.EXPECT().ShouldCache().Return(b.Provider.ShouldCache).AnyTimes()
-	provider.EXPECT().Targets(gomock.Any()).Return(b.Provider.Targets).AnyTimes()
+	provider.EXPECT().ForEachTarget(gomock.Any(), gomock.Any()).DoAndReturn(func(ctx *ai.Context, yield func(ai.Target) bool) {
+		for _, target := range b.Provider.Targets {
+			if !yield(target) {
+				return
+			}
+		}
+	}).AnyTimes()
 
 	mockBehavior.EXPECT().Provider(gomock.Any()).Return(provider).AnyTimes()
 
