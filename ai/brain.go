@@ -104,16 +104,6 @@ func (b *Brain) clearCaches(ctx *Context) {
 	clear(ctx.considerationCache)
 }
 
-func (b *Brain) ForEachTarget(ctx *Context, yield func(Target) bool) {
-	for _, pkg := range b.BehaviorPackages {
-		for _, behavior := range pkg.Behaviors {
-			provider := behavior.Provider(ctx)
-			// Todo: Implement caching for providers that should cache
-			provider.ForEachTarget(ctx, yield)
-		}
-	}
-}
-
 func (b *Brain) boostScoreIfCurrent(behavior Behavior, target Target, score float64) float64 {
 	if !b.Current.Running {
 		return score
@@ -137,7 +127,9 @@ func (b *Brain) Decide(ctx *Context) Decision {
 				continue
 			}
 
-			b.ForEachTarget(ctx, func(target Target) bool {
+			provider := behavior.Provider(ctx)
+
+			provider.ForEachTarget(ctx, func(target Target) bool {
 				score := EvaluateBehavior(ctx, behavior, target)
 				score = b.boostScoreIfCurrent(behavior, target, score)
 
