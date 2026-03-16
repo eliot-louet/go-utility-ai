@@ -105,6 +105,20 @@ func (mr *MockBehaviorMockRecorder) ID() *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ID", reflect.TypeOf((*MockBehavior)(nil).ID))
 }
 
+// MaxBehaviorScore mocks base method.
+func (m *MockBehavior) MaxBehaviorScore() float64 {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "MaxBehaviorScore")
+	ret0, _ := ret[0].(float64)
+	return ret0
+}
+
+// MaxBehaviorScore indicates an expected call of MaxBehaviorScore.
+func (mr *MockBehaviorMockRecorder) MaxBehaviorScore() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MaxBehaviorScore", reflect.TypeOf((*MockBehavior)(nil).MaxBehaviorScore))
+}
+
 // Name mocks base method.
 func (m *MockBehavior) Name() string {
 	m.ctrl.T.Helper()

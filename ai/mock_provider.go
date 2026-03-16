@@ -39,18 +39,6 @@ func (m *MockTargetProvider) EXPECT() *MockTargetProviderMockRecorder {
 	return m.recorder
 }
 
-// ForEachTarget mocks base method.
-func (m *MockTargetProvider) ForEachTarget(ctx *Context, yield func(Target) bool) {
-	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "ForEachTarget", ctx, yield)
-}
-
-// ForEachTarget indicates an expected call of ForEachTarget.
-func (mr *MockTargetProviderMockRecorder) ForEachTarget(ctx, yield any) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ForEachTarget", reflect.TypeOf((*MockTargetProvider)(nil).ForEachTarget), ctx, yield)
-}
-
 // ID mocks base method.
 func (m *MockTargetProvider) ID() TargetProviderID {
 	m.ctrl.T.Helper()
@@ -77,4 +65,18 @@ func (m *MockTargetProvider) ShouldCache() bool {
 func (mr *MockTargetProviderMockRecorder) ShouldCache() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ShouldCache", reflect.TypeOf((*MockTargetProvider)(nil).ShouldCache))
+}
+
+// Targets mocks base method.
+func (m *MockTargetProvider) Targets(ctx *Context) []Target {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Targets", ctx)
+	ret0, _ := ret[0].([]Target)
+	return ret0
+}
+
+// Targets indicates an expected call of Targets.
+func (mr *MockTargetProviderMockRecorder) Targets(ctx any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Targets", reflect.TypeOf((*MockTargetProvider)(nil).Targets), ctx)
 }
