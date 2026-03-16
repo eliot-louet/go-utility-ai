@@ -21,7 +21,7 @@ type Behavior interface {
 	ID() BehaviorID
 	Name() string
 
-	ForEachConsideration(ctx *Context, target Target, yield func(*Consideration) bool)
+	Considerations(ctx *Context, target Target) []*Consideration
 
 	Weight(ctx *Context, target Target) float64
 
@@ -45,7 +45,7 @@ func EvaluateBehavior(ctx *Context, behavior Behavior, target Target) float64 {
 	score_product := 1.0
 	values := 0.0
 
-	behavior.ForEachConsideration(ctx, target, func(c *Consideration) bool {
+	for _, c := range behavior.Considerations(ctx, target) {
 		raw := c.Input(ctx, target)
 
 		normalized := math_utils.Normalize(raw, c.Min(), c.Max())
@@ -54,14 +54,12 @@ func EvaluateBehavior(ctx *Context, behavior Behavior, target Target) float64 {
 
 		// If any consideration returns 0, the whole behavior is not worth it
 		if curved == 0 {
-			return false
+			return 0
 		}
 
 		score_product *= curved
 		values++
-
-		return true
-	})
+	}
 
 	final := math.Pow(score_product, 1.0/values)
 

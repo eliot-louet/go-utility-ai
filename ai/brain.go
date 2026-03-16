@@ -129,7 +129,9 @@ func (b *Brain) Decide(ctx *Context) Decision {
 
 			provider := behavior.Provider(ctx)
 
-			provider.ForEachTarget(ctx, func(target Target) bool {
+			targets := provider.Targets(ctx)
+
+			for _, target := range targets {
 				score := EvaluateBehavior(ctx, behavior, target)
 				score = b.boostScoreIfCurrent(behavior, target, score)
 
@@ -139,9 +141,7 @@ func (b *Brain) Decide(ctx *Context) Decision {
 					bestBehavior = behavior
 					bestTarget = target
 				}
-
-				return true
-			})
+			}
 		}
 	}
 
