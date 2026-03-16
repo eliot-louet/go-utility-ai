@@ -29,7 +29,7 @@ type Behavior interface {
 
 	Action(ctx *Context, target Target) Action
 
-	MaxBehaviorScore() float64
+	MaxScore() float64
 
 	ShouldAddToHistory() bool
 }

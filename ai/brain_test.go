@@ -37,7 +37,7 @@ func (b behaviorData) MakeBehavior(f *brainFixture, ctrl *gomock.Controller) *ai
 	mockBehavior.EXPECT().Name().Return(b.Name).AnyTimes()
 	mockBehavior.EXPECT().ShouldAddToHistory().Return(b.ShouldAddToHistory).AnyTimes()
 	mockBehavior.EXPECT().Weight(gomock.Any(), gomock.Any()).Return(1.0).AnyTimes()
-	mockBehavior.EXPECT().MaxBehaviorScore().Return(1.0).AnyTimes()
+	mockBehavior.EXPECT().MaxScore().Return(1.0).AnyTimes()
 
 	provider := ai.NewMockTargetProvider(ctrl)
 	provider.EXPECT().ID().Return(b.Provider.ID).AnyTimes()

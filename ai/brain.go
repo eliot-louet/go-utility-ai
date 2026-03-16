@@ -128,7 +128,7 @@ func (b *Brain) Decide(ctx *Context) Decision {
 
 		for _, behavior := range pkg.Behaviors {
 			// Skip behaviors that can't possibly beat the current best score
-			if bestScore > behavior.MaxBehaviorScore()*1.25 {
+			if bestScore > behavior.MaxScore()*1.25 {
 				continue
 			}
 
