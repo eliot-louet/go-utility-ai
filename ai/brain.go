@@ -122,14 +122,15 @@ func (b *Brain) Decide(ctx *Context) Decision {
 	var bestTarget Target
 
 	for _, pkg := range b.BehaviorPackages {
+		// If the package has a condition function and it returns false, skip evaluating its behaviors
 		if pkg.ConditionFunc != nil && !pkg.ConditionFunc(ctx) {
 			continue
 		}
 
 		for _, behavior := range pkg.Behaviors {
-			// Skip behaviors that can't possibly beat the current best score
+			// Skip behaviors that can't outperform the current one even with the boost
 			if bestScore > behavior.MaxScore()*1.25 {
-				continue
+				break
 			}
 
 			provider := behavior.Provider(ctx)
