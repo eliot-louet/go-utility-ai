@@ -187,7 +187,7 @@ func Current(id string, score float64, actionUpdateStatus ai.ActionStatus) curre
 			UpdateStatus: actionUpdateStatus,
 		},
 		Behavior: Behavior(id, score, actionUpdateStatus),
-		Target:   "target",
+		Target:   ai.Target{ID: 1, Type: ai.TargetTypeActor},
 		Score:    score,
 		Running:  true,
 		State:    map[string]interface{}{},
@@ -210,7 +210,7 @@ func Behavior(id string, score float64, actionUpdateStatus ai.ActionStatus) beha
 		},
 		Provider: providerData{
 			ID:      ai.TargetProviderID(id + "_provider"),
-			Targets: []ai.Target{"target"},
+			Targets: []ai.Target{{ID: 1, Type: ai.TargetTypeActor}},
 		},
 	}
 }

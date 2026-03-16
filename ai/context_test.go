@@ -44,27 +44,29 @@ func TestCachedTargets(t *testing.T) {
 		{
 			name: "Cache hit",
 			cacheContent: map[TargetProviderID][]Target{
-				"provider1": {"target1", "target2"},
+				"provider1": {Target{ID: 1, Type: TargetTypeActor}, Target{ID: 2, Type: TargetTypeObject}},
 			},
 			fetchKey:      "provider1",
-			fetcher:       func() []Target { return []Target{"newTarget"} },
-			expectTargets: []Target{"target1", "target2"},
+			fetcher:       func() []Target { return []Target{Target{ID: 3, Type: TargetTypeActor}} },
+			expectTargets: []Target{Target{ID: 1, Type: TargetTypeActor}, Target{ID: 2, Type: TargetTypeObject}},
 		},
 		{
-			name:          "Cache miss",
-			cacheContent:  map[TargetProviderID][]Target{},
-			fetchKey:      "provider1",
-			fetcher:       func() []Target { return []Target{"target1", "target2"} },
-			expectTargets: []Target{"target1", "target2"},
+			name:         "Cache miss",
+			cacheContent: map[TargetProviderID][]Target{},
+			fetchKey:     "provider1",
+			fetcher: func() []Target {
+				return []Target{Target{ID: 1, Type: TargetTypeActor}, Target{ID: 2, Type: TargetTypeObject}}
+			},
+			expectTargets: []Target{Target{ID: 1, Type: TargetTypeActor}, Target{ID: 2, Type: TargetTypeObject}},
 		},
 		{
 			name: "Cache miss with existing different key",
 			cacheContent: map[TargetProviderID][]Target{
-				"provider1": {"target1", "target2"},
+				"provider1": {Target{ID: 1, Type: TargetTypeActor}, Target{ID: 2, Type: TargetTypeObject}},
 			},
 			fetchKey:      "provider2",
-			fetcher:       func() []Target { return []Target{"target3"} },
-			expectTargets: []Target{"target3"},
+			fetcher:       func() []Target { return []Target{Target{ID: 3, Type: TargetTypeActor}} },
+			expectTargets: []Target{Target{ID: 3, Type: TargetTypeActor}},
 		},
 	}
 
@@ -114,43 +116,43 @@ func TestConsiderationCache(t *testing.T) {
 		{
 			name: "Cache hit",
 			cacheContent: map[considerationCacheKey]float64{
-				{id: "cons1", target: "target1"}: 0.75,
+				{id: "cons1", target: Target{ID: 1, Type: TargetTypeActor}}: 0.75,
 			},
 			fetchId:      "cons1",
-			fetchTarget:  "target1",
+			fetchTarget:  Target{ID: 1, Type: TargetTypeActor},
 			expectFloat:  0.75,
 			expectExists: true,
 		},
 		{
 			name: "Cache miss (missing id and target)",
 			cacheContent: map[considerationCacheKey]float64{
-				{id: "cons1", target: "target1"}: 0.75,
+				{id: "cons1", target: Target{ID: 1, Type: TargetTypeActor}}: 0.75,
 			},
 			fetchId:      "cons2",
-			fetchTarget:  "target2",
+			fetchTarget:  Target{ID: 2, Type: TargetTypeObject},
 			expectFloat:  0.0,
 			expectExists: false,
 		},
 		{
 			name: "Cache miss (existing id but different target)",
 			cacheContent: map[considerationCacheKey]float64{
-				{id: "cons1", target: "target1"}: 0.75,
+				{id: "cons1", target: Target{ID: 1, Type: TargetTypeActor}}: 0.75,
 			},
 			fetchId:      "cons1",
-			fetchTarget:  "target2",
+			fetchTarget:  Target{ID: 2, Type: TargetTypeObject},
 			expectFloat:  0.0,
 			expectExists: false,
 		},
 		{
 			name: "Cache update",
 			cacheContent: map[considerationCacheKey]float64{
-				{id: "cons1", target: "target1"}: 0.75,
+				{id: "cons1", target: Target{ID: 1, Type: TargetTypeActor}}: 0.75,
 			},
 			setup: func(t *testing.T, f *contextFixture) {
-				f.context.SetCachedConsideration("cons1", "target1", 0.85)
+				f.context.SetCachedConsideration("cons1", Target{ID: 1, Type: TargetTypeActor}, 0.85)
 			},
 			fetchId:      "cons1",
-			fetchTarget:  "target1",
+			fetchTarget:  Target{ID: 1, Type: TargetTypeActor},
 			expectFloat:  0.85,
 			expectExists: true,
 		},

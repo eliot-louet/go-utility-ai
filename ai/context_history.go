@@ -47,7 +47,7 @@ func addHistory[ID comparable, T interface {
 
 	history.LastTime = tick
 
-	if target != nil {
+	if target.ID != -1 {
 		history.Targets[target] = tick
 	}
 }
@@ -71,7 +71,7 @@ func getLastTime[ID comparable, T interface{ ID() ID }](
 		return 0, false
 	}
 
-	if target != nil {
+	if target.ID != -1 {
 		lastTime, ok := history.Targets[target]
 		return lastTime, ok
 	}

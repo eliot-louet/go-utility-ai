@@ -9,7 +9,18 @@ import (
 
 type ActionStatus int
 type BehaviorID string
-type Target interface{}
+
+type TargetType uint8
+
+const (
+	TargetTypeActor TargetType = iota
+	TargetTypeObject
+)
+
+type Target struct {
+	ID   int
+	Type TargetType
+}
 
 const (
 	Running ActionStatus = iota
