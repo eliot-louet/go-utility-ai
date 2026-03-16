@@ -122,10 +122,11 @@ func (b *Brain) Decide(ctx *Context) Decision {
 	var bestTarget Target
 
 	for _, pkg := range b.BehaviorPackages {
+		if pkg.ConditionFunc != nil && !pkg.ConditionFunc(ctx) {
+			continue
+		}
+
 		for _, behavior := range pkg.Behaviors {
-			if pkg.ConditionFunc != nil && !pkg.ConditionFunc(ctx) {
-				continue
-			}
 
 			provider := behavior.Provider(ctx)
 
