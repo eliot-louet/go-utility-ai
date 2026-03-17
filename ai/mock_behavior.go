@@ -15,30 +15,6 @@ import (
 	gomock "go.uber.org/mock/gomock"
 )
 
-// MockTarget is a mock of Target interface.
-type MockTarget struct {
-	ctrl     *gomock.Controller
-	recorder *MockTargetMockRecorder
-	isgomock struct{}
-}
-
-// MockTargetMockRecorder is the mock recorder for MockTarget.
-type MockTargetMockRecorder struct {
-	mock *MockTarget
-}
-
-// NewMockTarget creates a new mock instance.
-func NewMockTarget(ctrl *gomock.Controller) *MockTarget {
-	mock := &MockTarget{ctrl: ctrl}
-	mock.recorder = &MockTargetMockRecorder{mock}
-	return mock
-}
-
-// EXPECT returns an object that allows the caller to indicate expected use.
-func (m *MockTarget) EXPECT() *MockTargetMockRecorder {
-	return m.recorder
-}
-
 // MockBehavior is a mock of Behavior interface.
 type MockBehavior struct {
 	ctrl     *gomock.Controller
