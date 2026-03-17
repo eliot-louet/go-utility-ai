@@ -32,14 +32,19 @@ type Behavior interface {
 	ID() BehaviorID
 	Name() string
 
+	// Get the considerations for this behavior and target
 	Considerations(ctx *Context, target Target) []*Consideration
 
+	// Get the weight of this behavior for the given context and target, used to calculate the final score
 	Weight(ctx *Context, target Target) float64
 
+	// Get the target provider for this behavior, which will return potential targets to evaluate
 	Provider(ctx *Context) TargetProvider
 
+	// Get the action to perform for this behavior and target
 	Action(ctx *Context, target Target) Action
 
+	// Max possible score for this behavior, should be equal to maximum weight
 	MaxScore() float64
 
 	ShouldAddToHistory() bool
