@@ -1,4 +1,4 @@
-package provider
+package utility_providers
 
 import (
 	"strings"
