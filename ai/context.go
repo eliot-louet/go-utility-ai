@@ -12,6 +12,7 @@ type Context struct {
 	considerationCache map[considerationCacheKey]float64
 	ActionHistory      map[ActionID]*ActionHistory
 	BehaviorHistory    map[BehaviorID]*BehaviorHistory
+	StatusManager      *StatusManager
 }
 
 func MakeContext(environment Environment, self Actor) *Context {
@@ -22,6 +23,7 @@ func MakeContext(environment Environment, self Actor) *Context {
 		considerationCache: make(map[considerationCacheKey]float64),
 		ActionHistory:      make(map[ActionID]*ActionHistory),
 		BehaviorHistory:    make(map[BehaviorID]*BehaviorHistory),
+		StatusManager:      NewStatusManager(),
 	}
 }
 
